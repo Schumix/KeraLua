@@ -1,12 +1,12 @@
 
-EXTRA_DIST =  expansions.m4 lib/nunit/nunit.framework.dll
+EXTRA_DIST =  expansions.m4
 
 #Warning: This is an automatically generated file, do not edit!
 if ENABLE_DEBUG
- SUBDIRS =  src KeraLua.Tests ConsoleTest
+ SUBDIRS =  src
 endif
 if ENABLE_RELEASE
- SUBDIRS =  src KeraLua.Tests ConsoleTest
+ SUBDIRS =  src
 endif
 
 # Projekt-specifikus makefile beszúrása

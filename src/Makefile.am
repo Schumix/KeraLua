@@ -4,40 +4,40 @@ EXTRA_DIST =
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = gmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
-ASSEMBLY = bin/Debug/KeraLua.dll
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:TRACE;DEBUG"
+ASSEMBLY = bin/Debug/net40/KeraLua.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
 PROJECT_REFERENCES = 
-BUILD_DIR = bin/Debug
+BUILD_DIR = bin/Debug/net40/
 
-KERALUA_DLL_MDB_SOURCE=bin/Debug/KeraLua.dll.mdb
+KERALUA_DLL_MDB_SOURCE=bin/Debug/net40/KeraLua.dll.mdb
 KERALUA_DLL_MDB=$(BUILD_DIR)/KeraLua.dll.mdb
 
 endif
 
 if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = gmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
-ASSEMBLY = bin/Release/KeraLua.dll
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+
+ASSEMBLY = bin/Release/net40/KeraLua.dll
 ASSEMBLY_MDB = 
 COMPILE_TARGET = library
 PROJECT_REFERENCES = 
-BUILD_DIR = bin/Release
+BUILD_DIR = bin/Release/net40/
 
 KERALUA_DLL_MDB=
 
 endif
 
-AL=al2
+AL=al
 SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 
 PROGRAMFILES = \
 	$(KERALUA_DLL_MDB)  
 
 LINUX_PKGCONFIG = \
-	$(KERALUA_PC)  
+	$(KERALUA_SCHUMIX_PC)  
 
 
 RESGEN=resgen2
@@ -58,7 +58,7 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	keralua.pc.in 
+	keralua.schumix.pc.in 
 
 REFERENCES =  \
 	System \
@@ -70,9 +70,9 @@ CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 include $(top_srcdir)/Makefile.include
 
-KERALUA_PC = $(BUILD_DIR)/keralua.pc
+KERALUA_SCHUMIX_PC = $(BUILD_DIR)/keralua.schumix.pc
 
-$(eval $(call emit-deploy-wrapper,KERALUA_PC,keralua.pc))
+$(eval $(call emit-deploy-wrapper,KERALUA_SCHUMIX_PC,keralua.schumix.pc))
 
 
 $(eval $(call emit_resgen_targets))

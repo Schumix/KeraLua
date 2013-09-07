@@ -1,6 +1,6 @@
 #! /bin/sh
 
-PROJECT=KeraLua
+PROJECT=KeraLua.Schumix
 FILE=
 CONFIGURE=configure.ac
 

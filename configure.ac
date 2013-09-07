@@ -1,7 +1,7 @@
 dnl Warning: This is an automatically generated file, do not edit!
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.54])
-AC_INIT([KeraLua], [0.1])
+AC_INIT([KeraLua.Schumix], [0.1])
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
@@ -17,9 +17,9 @@ SHAMROCK_EXPAND_DATADIR
 
 AC_PROG_INSTALL
 
-AC_PATH_PROG(GMCS, gmcs, no)
-if test "x$GMCS" = "xno"; then
-        AC_MSG_ERROR([gmcs Not found])
+AC_PATH_PROG(DMCS, dmcs, no)
+if test "x$DMCS" = "xno"; then
+        AC_MSG_ERROR([dmcs Not found])
 fi
 
 
@@ -51,12 +51,8 @@ dnl package checks, per config
 
 
 AC_CONFIG_FILES([
-src/keralua.pc
+src/keralua.schumix.pc
 src/Makefile
-KeraLua.Tests/keralua.tests.pc
-KeraLua.Tests/Makefile
-ConsoleTest/consoletest
-ConsoleTest/Makefile
 Makefile
 
 ])
