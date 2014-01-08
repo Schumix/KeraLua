@@ -1,7 +1,7 @@
 KeraLua [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Schumix/keralua/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 =======
 
-[![Build Status](https://travis-ci.org/NLua/KeraLua.png?branch=master)](https://travis-ci.org/NLua/KeraLua)
+[![Build Status](https://travis-ci.org/Schumix/KeraLua.png?branch=master)](https://travis-ci.org/Schumix/KeraLua)
 
 C# KopiLua compatible API for native bindings of Lua/LuaJIT (compatible with iOS/Mac/Android/.NET)
 
