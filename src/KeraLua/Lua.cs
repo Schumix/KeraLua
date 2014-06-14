@@ -18,7 +18,6 @@ namespace KeraLua
 			return NativeMethods.LuaTypeName (luaState, type);
 		}
 
-
 		public static void LuaLError (IntPtr luaState, string message)
 		{
 			NativeMethods.LuaLError (luaState, message);
@@ -192,11 +191,6 @@ namespace KeraLua
 			NativeMethods.LuaPushNil (luaState);
 		}
 
-
-		public static int LuaCall (IntPtr luaState, int nArgs, int nResults)
-		{
-			return NativeMethods.LuaCall (luaState, nArgs, nResults);
-		}
 
 		public static int LuaNetPCall (IntPtr luaState, int nArgs, int nResults, int errfunc)
 		{
@@ -432,6 +426,11 @@ namespace KeraLua
 		public static void LuaNetGetGlobal (IntPtr luaState, string name)
 		{
 			NativeMethods.LuaNetGetGlobal (luaState, name);
+		}
+
+		public static IntPtr LuaNetGetMainState (IntPtr luaState)
+		{
+			return NativeMethods.LuaNetGetMainState (luaState);
 		}
 	}
 

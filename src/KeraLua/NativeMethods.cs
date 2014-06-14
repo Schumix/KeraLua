@@ -118,9 +118,6 @@ namespace KeraLua
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_pushnil")]
 		internal static extern void LuaPushNil (IntPtr luaState);
 
-		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_call")]
-		internal static extern int LuaCall (IntPtr luaState, int nArgs, int nResults);
-
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "luanet_pcall")]
 		internal static extern int LuaNetPCall (IntPtr luaState, int nArgs, int nResults, int errfunc);
 
@@ -132,9 +129,6 @@ namespace KeraLua
 
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_toboolean")]
 		internal static extern int LuaToBoolean (IntPtr luaState, int index);
-
-		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_tolstring")]
-		internal static extern IntPtr LuaToLString (IntPtr luaState, int index, out uint strLen);
 
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_atpanic")]
 		internal static extern void LuaAtPanic (IntPtr luaState, IntPtr panicf);
@@ -148,10 +142,22 @@ namespace KeraLua
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_pushboolean")]
 		internal static extern void LuaPushBoolean (IntPtr luaState, int value);
 
+
+		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_tolstring")]
+		internal static extern IntPtr LuaToLString (IntPtr luaState, int index, out uint strLen);
+
+#if WSTRING
+		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode, EntryPoint = "luanet_pushlwstring")]
+#else
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "luanet_pushlstring")]
+#endif
 		internal static extern void LuaNetPushLString (IntPtr luaState, string str, uint size);
 
+#if WSTRING
+		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode, EntryPoint = "luanet_pushwstring")]
+#else
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "lua_pushstring")]
+#endif
 		internal static extern void LuaPushString (IntPtr luaState, string str);
 
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, EntryPoint = "luaL_newmetatable")]
@@ -240,5 +246,8 @@ namespace KeraLua
 
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "luanet_registryindex")]
 		internal static extern int LuaNetRegistryIndex ();
+
+		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "luanet_get_main_state")]
+		internal static extern IntPtr LuaNetGetMainState (IntPtr luaState);
 	}
 }
