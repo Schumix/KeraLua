@@ -6,9 +6,10 @@ using System.Runtime.InteropServices;
 
 namespace KeraLua
 {
+
 	static class NativeMethods
 	{
-
+	
 #if MONOTOUCH
 		const string LIBNAME = "__Internal";
 #else
@@ -17,6 +18,14 @@ namespace KeraLua
 #else
 		const string LIBNAME = "lua52";
 #endif
+
+#if USE_DYNAMIC_DLL_REGISTER
+		static NativeMethods ()
+		{
+			DynamicLibraryPath.RegisterPathForDll (LIBNAME);
+		}
+#endif
+
 #endif
 
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_gc")]
@@ -112,6 +121,9 @@ namespace KeraLua
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_isstring")]
 		internal static extern int LuaIsString (IntPtr luaState, int index);
 
+		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "luanet_isstring_strict")]
+		internal static extern int LuaNetIsStringStrict (IntPtr luaState, int index);
+
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_iscfunction")]
 		internal static extern int LuaIsCFunction (IntPtr luaState, int index);
 
@@ -204,6 +216,12 @@ namespace KeraLua
 
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_gethookcount")]
 		internal static extern int LuaGetHookCount (IntPtr luaState);
+
+		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_getinfo")]
+		internal static extern int LuaGetInfo (IntPtr luaState, string what, IntPtr ar);
+
+		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_getstack")]
+		internal static extern int LuaGetStack (IntPtr luaState, int level, IntPtr n);
 
 		[DllImport (LIBNAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lua_getlocal")]
 		internal static extern IntPtr LuaGetLocal (IntPtr luaState, IntPtr ar, int n);

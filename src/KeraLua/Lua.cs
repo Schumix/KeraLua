@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace KeraLua
 {
-	public delegate int LuaNativeFunction (LuaState luaState);
+	public delegate int LuaNativeFunction (KeraLua.LuaState luaState);
 
 	public static partial class Lua
 	{
@@ -179,6 +179,11 @@ namespace KeraLua
 			return NativeMethods.LuaIsString (luaState, index);
 		}
 
+		public static int LuaNetIsStringStrict (IntPtr luaState, int index)
+		{
+			return NativeMethods.LuaNetIsStringStrict (luaState, index);
+		}
+
 
 		public static bool LuaIsCFunction (IntPtr luaState, int index)
 		{
@@ -202,7 +207,11 @@ namespace KeraLua
 			IntPtr ptr = NativeMethods.LuaToCFunction (luaState, index);
 			if (ptr == IntPtr.Zero)
 				return null;
+#if NETFX_CORE
+			LuaNativeFunction function = Marshal.GetDelegateForFunctionPointer <LuaNativeFunction> (ptr);
+#else
 			LuaNativeFunction function = Marshal.GetDelegateForFunctionPointer (ptr, typeof (LuaNativeFunction)) as LuaNativeFunction;
+#endif
 			return function;
 		}
 
@@ -327,7 +336,7 @@ namespace KeraLua
 
 		public static int LuaSetHook (IntPtr luaState, LuaHook func, int mask, int count)
 		{
-			IntPtr funcHook = Marshal.GetFunctionPointerForDelegate (func);
+			IntPtr funcHook = func == null ? IntPtr.Zero : Marshal.GetFunctionPointerForDelegate (func);
 			return NativeMethods.LuaSetHook (luaState, funcHook, mask, count);
 		}
 
@@ -367,7 +376,44 @@ namespace KeraLua
 			return local;
 		}
 
+		public static int LuaGetInfo (IntPtr luaState, string what,ref LuaDebug ar)
+		{
+			IntPtr pDebug = Marshal.AllocHGlobal (Marshal.SizeOf (ar));
+			int ret = 0;
 
+			try {
+				Marshal.StructureToPtr (ar, pDebug, false);
+				ret = NativeMethods.LuaGetInfo (luaState, what, pDebug);
+#if NETFX_CORE
+				ar = Marshal.PtrToStructure <LuaDebug> (pDebug);
+#else
+				ar = (LuaDebug)Marshal.PtrToStructure (pDebug, typeof (LuaDebug));
+#endif
+			} finally {
+				Marshal.FreeHGlobal (pDebug);
+			}
+			return ret;
+		}
+
+		public static int LuaGetStack (IntPtr luaState, int level,ref LuaDebug ar)
+		{
+			IntPtr pDebug = Marshal.AllocHGlobal (Marshal.SizeOf (ar));
+			int ret = 0;
+			try {
+				Marshal.StructureToPtr (ar, pDebug, false);
+				ret = NativeMethods.LuaGetStack (luaState, level, pDebug);
+#if NETFX_CORE
+				ar = Marshal.PtrToStructure<LuaDebug> (pDebug);
+#else
+				ar = (LuaDebug)Marshal.PtrToStructure (pDebug, typeof (LuaDebug));
+#endif
+			} finally {
+				Marshal.FreeHGlobal (pDebug);
+			}
+			return ret;
+		}
+
+  
 		public static CharPtr LuaGetUpValue (IntPtr luaState, int funcindex, int n)
 		{
 			return NativeMethods.LuaGetUpValue (luaState, funcindex, n);

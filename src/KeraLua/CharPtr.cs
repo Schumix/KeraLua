@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Permissions;
 using System.Text;
 
 namespace KeraLua
@@ -32,7 +31,7 @@ namespace KeraLua
 			byte [] buffer = new byte [len];
 			System.Runtime.InteropServices.Marshal.Copy (nativeUtf8, buffer, 0, buffer.Length);
 
-			return Encoding.UTF8.GetString (buffer);
+			return Encoding.UTF8.GetString (buffer, 0, len);
 		}
 		
 		static private string PointerToString (IntPtr ptr)
@@ -87,7 +86,11 @@ namespace KeraLua
 				return s.ToString ();
 			} else
 #if WSTRING
+#if WINDOWS_PHONE || NETFX_CORE
+				return Encoding.UTF8.GetString (buff, 0, buff.Length);
+#else
 				return Encoding.UTF8.GetString (buff);
+#endif
 #else
 				return PointerToString(str, length);
 #endif

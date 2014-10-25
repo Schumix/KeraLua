@@ -60,12 +60,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KeraLua\CharPtr.cs" />
+    <Compile Include="KeraLua\DynamicLibraryPath.cs" />
     <Compile Include="KeraLua\Lua.cs" />
     <Compile Include="KeraLua\LuaDebug.cs" />
     <Compile Include="KeraLua\LuaState.cs" />
     <Compile Include="KeraLua\LuaTag.cs" />
     <Compile Include="KeraLua\NativeMethods.cs" />
     <Compile Include="KeraLua\Properties\AssemblyInfo.cs" />
+    <Compile Include="KeraLua\Platform\CLSCompliantAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />
