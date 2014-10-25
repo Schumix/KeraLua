@@ -5,7 +5,7 @@ EXTRA_DIST =
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:TRACE;DEBUG"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- "-nowarn:169" -debug "-define:TRACE;DEBUG"
 ASSEMBLY = bin/Debug/net40/KeraLua.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
@@ -19,7 +19,7 @@ endif
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-nowarn:169"
 ASSEMBLY = bin/Release/net40/KeraLua.dll
 ASSEMBLY_MDB = 
 COMPILE_TARGET = library
@@ -46,12 +46,14 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 FILES = \
 	KeraLua/CharPtr.cs \
+	KeraLua/DynamicLibraryPath.cs \
 	KeraLua/Lua.cs \
 	KeraLua/LuaDebug.cs \
 	KeraLua/LuaState.cs \
 	KeraLua/LuaTag.cs \
 	KeraLua/NativeMethods.cs \
-	KeraLua/Properties/AssemblyInfo.cs 
+	KeraLua/Properties/AssemblyInfo.cs \
+	KeraLua/Platform/CLSCompliantAttribute.cs 
 
 DATA_FILES = 
 
