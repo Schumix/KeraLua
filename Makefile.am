@@ -8,3 +8,6 @@ endif
 if ENABLE_RELEASE
  SUBDIRS =  src
 endif
+
+# Projekt-specifikus makefile beszúrása
+include Makefile.Linux # Todo: All platform
